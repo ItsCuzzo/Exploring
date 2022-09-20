@@ -74,7 +74,7 @@ contract City is ICity {
             /// It's worth mentioning that additional parameters can be added here to seemingly
             /// increase randomness, but ultimately, pretty much every source of on-chain
             /// randomness is deterministic by nature with a little bit of technical know how.
-            uint256 gameState = uint256(keccak256(abi.encodePacked(
+            uint256 gameState = uint256(keccak256(abi.encode(
                 msg.sender, stats.nonce
             )));
 
@@ -144,7 +144,7 @@ contract City is ICity {
                     /// Calculate an event ID to determine if we have found any cans at upon
                     /// venturing to this tile. We include the values of `i` and `j` for
                     /// additional 'randomness' in our seeding.
-                    uint256 eventId = uint256(keccak256(abi.encodePacked(block.timestamp, position, i, j)));
+                    uint256 eventId = uint256(keccak256(abi.encode(block.timestamp, position, i, j)));
 
                     /// Determine if the player has found any cans! We modulo `eventId` by 100
                     /// to get our resulting loot chance. Since we modulo by 100, the value

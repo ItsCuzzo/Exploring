@@ -35,7 +35,7 @@ contract CityTest is Test {
         ) = city.players(ALICE);
 
         assertEq(lastExplore, block.timestamp);
-        assertEq(cansFound, 159);
+        assertEq(cansFound, 180);
         assertEq(nonce, 1);
     }
 
