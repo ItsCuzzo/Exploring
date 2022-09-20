@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.10;
+pragma solidity 0.8.17;
 
 import "./interfaces/ICity.sol";
 
 /// @title Inspired by the Hobo Wars daily event of city exploration.
 /// @author ItsCuzzo
 /// @dev Source: https://wiki.hobowars.com/index.php?title=Exploring
+/// Remember that this implementation is heavily unoptimised for the
+/// purpose of the article, stay tuned for Part III where things get
+/// extra saucy.
 
 contract City is ICity {
 
@@ -71,13 +74,13 @@ contract City is ICity {
             /// It's worth mentioning that additional parameters can be added here to seemingly
             /// increase randomness, but ultimately, pretty much every source of on-chain
             /// randomness is deterministic by nature with a little bit of technical know how.
-            uint256 state = uint256(keccak256(abi.encodePacked(
-                msg.sender, block.timestamp, stats.nonce
+            uint256 gameState = uint256(keccak256(abi.encodePacked(
+                msg.sender, stats.nonce
             )));
 
             /// Determine the starting position of the explore run using the previously
-            /// defined `state` variable modulo `mapSize`.
-            uint256 position = state % mapSize;
+            /// defined `gameState` variable modulo `mapSize`.
+            uint256 position = gameState % mapSize + 1;
 
             /// Define a variable to cache the move set for a particular byte, we reuse
             /// this variable upon each iteration of the outer loop below to save a widdle
